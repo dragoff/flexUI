@@ -885,7 +885,7 @@ MonoBehaviour:
   IsShowAtStart: 0
   IsHideNeighborsOnShow: 0
   IsHideChildrenOnHide: 1
-  IsDynamicallyCreated: 0
+  IsDynamicallyCreated: 1
   IsDragMode: 0
   DragMode: 0
   IsButtonsCallOnChanged: 0

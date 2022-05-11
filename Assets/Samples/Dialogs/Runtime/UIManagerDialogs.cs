@@ -13,8 +13,8 @@ namespace FlexUI.Dialogs
 		[SerializeField] private DialogInput DialogInputPrefab = default;
 		[SerializeField] private Canvas OverlayCanvasPrefab = default;
 		
-		private static Canvas canvas = null;
-		
+		private Canvas canvas = null;
+
 		/// <summary>
 		/// Shows formatted error dialog.
 		/// </summary>
@@ -26,6 +26,8 @@ namespace FlexUI.Dialogs
 			else
 				ShowDialog(default, message);
 		}
+
+		public static void ShowErrorDialog(string message) => ShowErrorDialog(message, 200);
 
 		/// <summary>
 		/// Shows formatted warning dialog.
@@ -39,6 +41,8 @@ namespace FlexUI.Dialogs
 				ShowDialog(default, message);
 		}
 
+		public static void ShowWarningDialog(string message) => ShowWarningDialog(message, 200);
+
 		/// <summary>
 		/// Shows formatted message dialog.
 		/// </summary>
@@ -50,11 +54,13 @@ namespace FlexUI.Dialogs
 				ShowDialog(default, message);
 		}
 
+		public static void ShowMessageDialog(string message) => ShowMessageDialog(message, 200);
+
 		public static DialogWindow ShowDialog(BaseView owner, string message, string okText = "Ok", string cancelText = null,
 			bool isHideByTap = false, Action<DialogResult> hiddenCallback = null, string longMessage = null)
 		{
-			canvas ??= Instantiate(Instance.OverlayCanvasPrefab);
-			var view = Instantiate(Instance.DialogWindowPrefab, canvas.transform);
+			Instance.canvas ??= Instantiate(Instance.OverlayCanvasPrefab);
+			var view = Instantiate(Instance.DialogWindowPrefab, Instance.canvas.transform);
 			if (hiddenCallback != null)
 				view.Hidden += () => hiddenCallback(view.DialogResult);
 
@@ -67,14 +73,14 @@ namespace FlexUI.Dialogs
 		public static async Task<DialogResult> ShowDialogAsync(BaseView owner, string message, string okText = "Ok",
 			string cancelText = null, bool isHideByTap = false, string longMessage = null)
 		{
-			canvas ??= Instantiate(Instance.OverlayCanvasPrefab);
-			var view = Instantiate(Instance.DialogWindowPrefab, canvas.transform);
+			Instance.canvas ??= Instantiate(Instance.OverlayCanvasPrefab);
+			var view = Instantiate(Instance.DialogWindowPrefab, Instance.canvas.transform);
 			view.GrabComponents();
 			view.Initialize();
 			view.gameObject.SetActive(false);
 			view.Build(message, okText, cancelText, isHideByTap, longMessage);
 			await view.ShowAsync(owner);
-			Destroy(canvas.gameObject, 1);
+			Destroy(Instance.canvas.gameObject, 1);
 			return view.DialogResult;
 		}
 
@@ -90,8 +96,8 @@ namespace FlexUI.Dialogs
 		public static DialogInput ShowDialogInput(BaseView owner = default, string message = null, string placeHolderText = "",
 			string okText = "OK", string cancelText = "Cancel", Action<string> hiddenCallback = null)
 		{
-			canvas ??= Instantiate(Instance.OverlayCanvasPrefab);
-			var view = Instantiate(Instance.DialogInputPrefab, canvas.transform);
+			Instance.canvas ??= Instantiate(Instance.OverlayCanvasPrefab);
+			var view = Instantiate(Instance.DialogInputPrefab, Instance.canvas.transform);
 			if (hiddenCallback != null)
 				view.Hidden += () => hiddenCallback(view.Result);
 
@@ -104,8 +110,8 @@ namespace FlexUI.Dialogs
 		public static async Task<string> ShowDialogInputAsync(BaseView owner = null, string message = null, string placeHolderText = "",
 			string okText = "OK", string cancelText = "Cancel")
 		{
-			canvas ??= Instantiate(Instance.OverlayCanvasPrefab);
-			var view = Instantiate(Instance.DialogInputPrefab, canvas.transform);
+			Instance.canvas ??= Instantiate(Instance.OverlayCanvasPrefab);
+			var view = Instantiate(Instance.DialogInputPrefab, Instance.canvas.transform);
 
 			view.GrabComponents();
 			view.Initialize();
@@ -114,7 +120,7 @@ namespace FlexUI.Dialogs
 
 			await view.ShowAsync(owner);
 
-			Destroy(canvas.gameObject, 1);
+			Destroy(Instance.canvas.gameObject, 1);
 
 			return view.Result;
 		}
@@ -122,13 +128,13 @@ namespace FlexUI.Dialogs
 		public static IEnumerator ShowDialogInputCoroutine(BaseView owner, string message, string text, string placeHolderText = "",
 			string okText = "OK", string cancelText = "Cancel", Action<string> hiddenCallback = null)
 		{
-			canvas ??= Instantiate(Instance.OverlayCanvasPrefab);
-			var view = Instantiate(Instance.DialogInputPrefab, canvas.transform);
+			Instance.canvas ??= Instantiate(Instance.OverlayCanvasPrefab);
+			var view = Instantiate(Instance.DialogInputPrefab, Instance.canvas.transform);
 			view.Build(message, okText, cancelText, placeHolderText);
 
 			yield return view.ShowCoroutine(owner);
 
-			Destroy(canvas.gameObject, 1);
+			Destroy(Instance.canvas.gameObject, 1);
 			hiddenCallback?.Invoke(view.Result);
 		}
 

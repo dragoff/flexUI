@@ -81,12 +81,10 @@ namespace FlexUI
 
 			//grab views for views
 			foreach (var view in views)
-			{
 				view.GrabViews(StaticViews);
-			}
 
 			//init views
-			foreach (var view in views)
+			foreach (var view in views.Where(v => !v.IsDynamicallyCreated))
 				view.Initialize();
 
 			//show views
