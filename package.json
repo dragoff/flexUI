@@ -1,0 +1,14 @@
+{
+  "name": "com.dragoff.uiscreengenerator",
+  "version": "1.0.0",
+  "displayName": "Ui Screen Generator",
+  "author": "@dragoff (Evgeniy A)",
+  "unity": "2020.1",
+  "description": "Generate ui objects",
+  "files": [	
+	"Scripts",
+	"Scripts.meta",
+	"package.json.meta"
+  ]
+}
+	

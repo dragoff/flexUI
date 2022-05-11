@@ -1,0 +1,20 @@
+{
+    "name": "FlexUI.Dialogs.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:8c6ebcb0bfc59ab1cae67c2f20af0014",
+        "GUID:171236a1ee203a3418574f67c1e23fa1",
+        "GUID:4039a43f3033b03f0b08f678af76cf18"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
