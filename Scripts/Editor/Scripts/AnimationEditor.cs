@@ -10,19 +10,19 @@ namespace FlexUI.Editor.Animations
 		void OnEnable()
 		{
 			foldout = null;
-			var chain = ((AnimationLink)target).Animation;
+			var chain = ((AnimationLink)target).EaseAnimation;
 			if (chain != null && chain.Sequence.Count > 0)
 				foldout = chain.Sequence[0];
 		}
 
-		SingleAnimation singleAnimation;
+		SingleEaseAnimation singleEaseAnimation;
 
 		public override void OnInspectorGUI()
 		{
 			serializedObject.Update();
 
-			GUILayout.Label("Easing animation", new GUIStyle() { alignment = TextAnchor.UpperCenter, fontSize = 20 });
-			var chain = ((AnimationLink)target).Animation;
+			GUILayout.Label("Ease animation", new GUIStyle() { alignment = TextAnchor.UpperCenter, fontSize = 20 });
+			var chain = ((AnimationLink)target).EaseAnimation;
 
 			chain.TimeScale = EditorGUILayout.FloatField("Time Scale", chain.TimeScale);
 			chain.RepeatCount = EditorGUILayout.IntField("Repeat Count", chain.RepeatCount);
@@ -32,20 +32,20 @@ namespace FlexUI.Editor.Animations
 				var i = 0;
 				foreach (var sa in chain.Sequence)
 				{
-					singleAnimation = sa;
+					singleEaseAnimation = sa;
 					GUILayout.Space(10);
 					EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 					EditorGUILayout.BeginHorizontal();
 					EditorGUILayout.HelpBox("Animation " + (++i), MessageType.None);
 					if (GUILayout.Button("X", GUILayout.Width(20)))
 					{
-						((AnimationLink)this.target).Animation.Sequence.Remove(sa);
+						((AnimationLink)this.target).EaseAnimation.Sequence.Remove(sa);
 						EditorUtility.SetDirty(this.target);
 						break;
 					}
 
 					EditorGUILayout.EndHorizontal();
-					DrawSingleAnimation(singleAnimation);
+					DrawSingleAnimation(singleEaseAnimation);
 					EditorGUILayout.EndVertical();
 				}
 			}
@@ -58,7 +58,7 @@ namespace FlexUI.Editor.Animations
 
 			if (GUILayout.Button("Add Chain Animation"))
 			{
-				var sa = new SingleAnimation();
+				var sa = new SingleEaseAnimation();
 				chain.Sequence.Add(sa);
 				foldout = sa;
 				EditorUtility.SetDirty(target);
@@ -69,9 +69,9 @@ namespace FlexUI.Editor.Animations
 			EditorUtility.SetDirty(target);
 		}
 
-		SingleAnimation foldout;
+		SingleEaseAnimation foldout;
 
-		private void DrawSingleAnimation(SingleAnimation target)
+		private void DrawSingleAnimation(SingleEaseAnimation target)
 		{
 			var title = target.Animations.Count > 0 ? "" : "Empty";
 			foreach (BaseAnimation a in target.Animations)
@@ -128,35 +128,35 @@ namespace FlexUI.Editor.Animations
 				if (GUILayout.Button("Slide"))
 				{
 					var a = new SlideAnimation();
-					(target as SingleAnimation).Animations.Add(a);
+					(target as SingleEaseAnimation).Animations.Add(a);
 					EditorUtility.SetDirty(this.target);
 				}
 
 				if (GUILayout.Button("Scale"))
 				{
 					var a = new ScaleAnimation();
-					(target as SingleAnimation).Animations.Add(a);
+					(target as SingleEaseAnimation).Animations.Add(a);
 					EditorUtility.SetDirty(this.target);
 				}
 
 				if (GUILayout.Button("Offset"))
 				{
 					var a = new OffsetAnimation();
-					(target as SingleAnimation).Animations.Add(a);
+					(target as SingleEaseAnimation).Animations.Add(a);
 					EditorUtility.SetDirty(this.target);
 				}
 
 				if (GUILayout.Button("Rotate"))
 				{
 					var a = new RotateAnimation();
-					(target as SingleAnimation).Animations.Add(a);
+					(target as SingleEaseAnimation).Animations.Add(a);
 					EditorUtility.SetDirty(this.target);
 				}
 
 				if (GUILayout.Button("Fade"))
 				{
 					var a = new FadeAnimation();
-					(target as SingleAnimation).Animations.Add(a);
+					(target as SingleEaseAnimation).Animations.Add(a);
 					EditorUtility.SetDirty(this.target);
 				}
 
@@ -201,7 +201,7 @@ namespace FlexUI.Editor.Animations
 
 		private void Remove(BaseAnimation anim)
 		{
-			singleAnimation.Animations.Remove(anim);
+			singleEaseAnimation.Animations.Remove(anim);
 			EditorUtility.SetDirty(this.target);
 		}
 

@@ -81,12 +81,10 @@ namespace FlexUI
 
 			//grab views for views
 			foreach (var view in views)
-			{
 				view.GrabViews(StaticViews);
-			}
 
 			//init views
-			foreach (var view in views)
+			foreach (var view in views.Where(v => !v.IsDynamicallyCreated))
 				view.Initialize();
 
 			//show views
@@ -134,13 +132,13 @@ namespace FlexUI
 			var anim = view.Animations.IsOverrideAnimation ? view.Animations.ShowAnimation : Instance.ShowAnimation;
 
 			//play show animation
-			if (anim == null || anim.Animation == null || noAnimation)
+			if (anim == null || anim.EaseAnimation == null || noAnimation)
 				animDoneCallback?.Invoke();
 			else
 			{
 				if (!concurrentAnimation)
-					view.CurrentAnimation?.CurrentAnimation?.StopAndResetTransform();
-				view.CurrentAnimation = AnimationPlayer.Play(view.RectTransform, anim.Animation, animDoneCallback, true, 1, 1);
+					view.CurrentAnimation?.CurrentEaseAnimation?.StopAndResetTransform();
+				view.CurrentAnimation = AnimationPlayer.Play(view.RectTransform, anim.EaseAnimation, animDoneCallback, true, 1, 1);
 			}
 		}
 
@@ -166,13 +164,13 @@ namespace FlexUI
 			//get hide animation
 			var anim = view.Animations.IsOverrideAnimation ? view.Animations.HideAnimation : Instance.HideAnimation;
 
-			if (isNoAnimation || anim == null || anim.Animation == null)
+			if (isNoAnimation || anim == null || anim.EaseAnimation == null)
 				AnimationDoneCallback();
 			else
 			{
 				if (!isNeighborsAnimate)
-					view.CurrentAnimation?.CurrentAnimation?.StopAndResetTransform();
-				view.CurrentAnimation = AnimationPlayer.Play(view.RectTransform, anim.Animation, AnimationDoneCallback, true, 1, 1);
+					view.CurrentAnimation?.CurrentEaseAnimation?.StopAndResetTransform();
+				view.CurrentAnimation = AnimationPlayer.Play(view.RectTransform, anim.EaseAnimation, AnimationDoneCallback, true, 1, 1);
 			}
 
 			ClearOwner(view);

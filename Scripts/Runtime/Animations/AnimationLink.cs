@@ -10,45 +10,45 @@ namespace FlexUI.Animations
 	public class AnimationLink : ScriptableObject, ISerializationCallbackReceiver
 	{
 		[NonSerialized]
-		Animation _Animation;
+		EaseAnimation easeAnimation;
 
 		[SerializeField]
 		[HideInInspector]
 		byte[] raw;
 
-		public Animation Animation
+		public EaseAnimation EaseAnimation
 		{
 			get
 			{
-				if (_Animation != null)
+				if (easeAnimation != null)
 				{
-					return _Animation;
+					return easeAnimation;
 				}
 
 				if (raw == null)
 				{
-					_Animation = new Animation();
+					easeAnimation = new EaseAnimation();
 				}
 				else
 				{
 					using (var ms = new MemoryStream(raw))
 						try
 						{
-							_Animation = (Animation)new BinaryFormatter().Deserialize(ms);
+							easeAnimation = (EaseAnimation)new BinaryFormatter().Deserialize(ms);
 						}
 						catch (Exception ex)
 						{
 							Debug.LogException(ex);
-							_Animation = new Animation();
+							easeAnimation = new EaseAnimation();
 						}
 				}
 
-				foreach (var sa in Animation.Sequence)
+				foreach (var sa in EaseAnimation.Sequence)
 				foreach (var a in sa.Animations)
 					a.OnAfterDeserialize();
 
 				raw = null;
-				return _Animation;
+				return easeAnimation;
 			}
 		}
 
@@ -58,25 +58,25 @@ namespace FlexUI.Animations
 
 		void ISerializationCallbackReceiver.OnBeforeSerialize()
 		{
-			if (_Animation == null)
+			if (easeAnimation == null)
 			{
 				return;
 			}
 
-			foreach (var sa in Animation.Sequence)
+			foreach (var sa in EaseAnimation.Sequence)
 			foreach (var a in sa.Animations)
 				a.OnBeforeSerialize();
 
 			using (var ms = new MemoryStream())
 			{
-				new BinaryFormatter().Serialize(ms, Animation);
+				new BinaryFormatter().Serialize(ms, EaseAnimation);
 				raw = ms.ToArray();
 			}
 		}
 
-		public static implicit operator Animation(AnimationLink link)
+		public static implicit operator EaseAnimation(AnimationLink link)
 		{
-			return link?.Animation;
+			return link?.EaseAnimation;
 		}
 	}
 }
