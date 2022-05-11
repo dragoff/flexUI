@@ -1,14 +1,24 @@
 {
-  "name": "com.dragoff.uiscreengenerator",
-  "version": "1.0.0",
-  "displayName": "Ui Screen Generator",
+  "name": "com.dragoff.flexui",
+  "version": "0.9.3",
+  "displayName": "Flex UI",
   "author": "@dragoff (Evgeniy A)",
-  "unity": "2020.1",
-  "description": "Generate ui objects",
+  "unity": "2021.2",
+  "description": "UI kit",
   "files": [	
 	"Scripts",
 	"Scripts.meta",
-	"package.json.meta"
+	"package.json.meta",
+    "Samples~",
+    "Samples~.meta"
+  ],
+  "samples": [
+    {
+      "displayName": "Dialogs implementation",
+      "description": "Add dialogs application example",
+      "path": "Samples~/Dialogs"
+    }
   ]
 }
+
 	
