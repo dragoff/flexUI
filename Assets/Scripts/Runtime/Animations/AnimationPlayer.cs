@@ -27,37 +27,37 @@ namespace FlexUI.Animations
 
         #region Play
 
-        public static AnimatedItem Play(Component comp, Animation anim, Action onDone = null, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
+        public static AnimatedItem Play(Component comp, EaseAnimation anim, Action onDone = null, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
         {
             return Play(comp.transform as RectTransform, anim, onDone, forcedStopPreviousAnimation, timeScale, repeatCount);
         }
 
-        public static AnimatedItem Play(GameObject obj, Animation anim, Action onDone = null, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
+        public static AnimatedItem Play(GameObject obj, EaseAnimation anim, Action onDone = null, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
         {
             return Play(obj.transform as RectTransform, anim, onDone, forcedStopPreviousAnimation, timeScale, repeatCount);
         }
 
-        public static IEnumerator PlayCoroutine(Component comp, Animation anim, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
+        public static IEnumerator PlayCoroutine(Component comp, EaseAnimation anim, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
         {
             return PlayCoroutine(comp.transform as RectTransform, anim, forcedStopPreviousAnimation, timeScale, repeatCount);
         }
 
-        public static IEnumerator PlayCoroutine(GameObject obj, Animation anim, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
+        public static IEnumerator PlayCoroutine(GameObject obj, EaseAnimation anim, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
         {
             return PlayCoroutine(obj.transform as RectTransform, anim, forcedStopPreviousAnimation, timeScale, repeatCount);
         }
 
-        public static async Task PlayAsync(Component comp, Animation anim, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
+        public static async Task PlayAsync(Component comp, EaseAnimation anim, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
         {
             await PlayAsync(comp.transform as RectTransform, anim, forcedStopPreviousAnimation, timeScale, repeatCount);
         }
 
-        public static async Task PlayAsync(GameObject obj, Animation anim, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
+        public static async Task PlayAsync(GameObject obj, EaseAnimation anim, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
         {
             await PlayAsync(obj.transform as RectTransform, anim, forcedStopPreviousAnimation, timeScale, repeatCount);
         }
 
-        public static AnimatedItem Play(RectTransform rt, Animation anim, Action onDone = null, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
+        public static AnimatedItem Play(RectTransform rt, EaseAnimation anim, Action onDone = null, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
         {
 	        if (anim == null)
 	        {
@@ -74,7 +74,7 @@ namespace FlexUI.Animations
             return item;
         }
 
-        public static IEnumerator PlayCoroutine(RectTransform rt, Animation anim, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
+        public static IEnumerator PlayCoroutine(RectTransform rt, EaseAnimation anim, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
         {
             //get or create AnimatedItem
             var item = GetOrCreateAnimatedItem(rt);
@@ -87,7 +87,7 @@ namespace FlexUI.Animations
                 yield return null;
         }
 
-        public static async Task PlayAsync(RectTransform rt, Animation anim, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
+        public static async Task PlayAsync(RectTransform rt, EaseAnimation anim, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
         {
             //get or create AnimatedItem
             var item = GetOrCreateAnimatedItem(rt);
@@ -111,13 +111,13 @@ namespace FlexUI.Animations
             return item;
         }
 
-        private static IEnumerator PlayCoroutine(AnimatedItem item, Animation anim, Action onDone = null, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
+        private static IEnumerator PlayCoroutine(AnimatedItem item, EaseAnimation anim, Action onDone = null, bool forcedStopPreviousAnimation = true, float timeScale = 1, int repeatCount = 1)
         {
             //wait finsh of prev animation
-            while (item.CurrentAnimation != null)
+            while (item.CurrentEaseAnimation != null)
             {
                 if (forcedStopPreviousAnimation)
-                    item.CurrentAnimation.StopAndResetTransform();//forced stop prev animation
+                    item.CurrentEaseAnimation.StopAndResetTransform();//forced stop prev animation
                 yield return null;
             }
 
@@ -127,14 +127,14 @@ namespace FlexUI.Animations
             if (!item.Transform.gameObject.activeInHierarchy)
             {
                 //can not play inactive...
-                item.CurrentAnimation = null;
+                item.CurrentEaseAnimation = null;
                 onDone?.Invoke();
                 yield break;
             }
 
             var animInstance = anim?.CreateInstance();
 
-            item.CurrentAnimation = animInstance;
+            item.CurrentEaseAnimation = animInstance;
             try
             {
                 if (animInstance != null)
@@ -142,7 +142,7 @@ namespace FlexUI.Animations
             }
             finally
             {
-                item.CurrentAnimation = null;
+                item.CurrentEaseAnimation = null;
                 onDone?.Invoke();
             }
         }
@@ -152,7 +152,7 @@ namespace FlexUI.Animations
         public class AnimatedItem
         {
             public RectTransform Transform;
-            public IAnimation CurrentAnimation;
+            public IEaseAnimation CurrentEaseAnimation;
 
             public AnimatedItem(RectTransform transform)
             {

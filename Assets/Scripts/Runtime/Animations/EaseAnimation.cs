@@ -7,22 +7,22 @@ using UnityEngine;
 
 namespace FlexUI.Animations
 {
-	public interface IAnimation
+	public interface IEaseAnimation
 	{
 		IEnumerator Play(RectTransform rt, float timeScale = 1, int repeatCount = 1);
 		void StopAndResetTransform();
 	}
 
 	[Serializable]
-	public class Animation : IAnimation
+	public class EaseAnimation : IEaseAnimation
 	{
 		public float TimeScale = 3;
 		public int RepeatCount = 1;
 
 		[HideInInspector]
-		public List<SingleAnimation> Sequence = new List<SingleAnimation>();
+		public List<SingleEaseAnimation> Sequence = new List<SingleEaseAnimation>();
 
-		IEnumerator IAnimation.Play(RectTransform rt, float timeScale, int repeatCount)
+		IEnumerator IEaseAnimation.Play(RectTransform rt, float timeScale, int repeatCount)
 		{
 			if (repeatCount < 0)
 				repeatCount = int.MaxValue;
@@ -30,26 +30,26 @@ namespace FlexUI.Animations
 			repeatCount *= RepeatCount;
 
 			for (int i = 0; i < repeatCount; i++)
-				foreach (var a in Sequence.Cast<IAnimation>())
+				foreach (var a in Sequence.Cast<IEaseAnimation>())
 					yield return a.Play(rt, TimeScale * timeScale);
 		}
 
-		void IAnimation.StopAndResetTransform()
+		void IEaseAnimation.StopAndResetTransform()
 		{
-			foreach (var a in Sequence.Cast<IAnimation>())
+			foreach (var a in Sequence.Cast<IEaseAnimation>())
 				a.StopAndResetTransform();
 		}
 
-		public IAnimation CreateInstance()
+		public IEaseAnimation CreateInstance()
 		{
-			var res = (Animation)MemberwiseClone();
-			res.Sequence = Sequence.Select(a => (SingleAnimation)a.CreateInstance()).ToList();
+			var res = (EaseAnimation)MemberwiseClone();
+			res.Sequence = Sequence.Select(a => (SingleEaseAnimation)a.CreateInstance()).ToList();
 			return res;
 		}
 	}
 
 	[Serializable]
-	public class SingleAnimation : IAnimation
+	public class SingleEaseAnimation : IEaseAnimation
 	{
 		public float TimeScale = 1;
 		public int RepeatCount = 1;
@@ -64,7 +64,7 @@ namespace FlexUI.Animations
 		[NonSerialized]
 		bool stop;
 
-		IEnumerator IAnimation.Play(RectTransform rt, float timeScale, int repeatCount)
+		IEnumerator IEaseAnimation.Play(RectTransform rt, float timeScale, int repeatCount)
 		{
 			stop = false;
 			source = new TransformInfo(rt);
@@ -97,7 +97,7 @@ namespace FlexUI.Animations
 				a.OnFinish();
 		}
 
-		void IAnimation.StopAndResetTransform()
+		void IEaseAnimation.StopAndResetTransform()
 		{
 			foreach (var a in Animations)
 				a.OnFinish();
@@ -106,9 +106,9 @@ namespace FlexUI.Animations
 			stop = true;
 		}
 
-		public IAnimation CreateInstance()
+		public IEaseAnimation CreateInstance()
 		{
-			var res = (SingleAnimation)MemberwiseClone();
+			var res = (SingleEaseAnimation)MemberwiseClone();
 			res.Animations = Animations.Select(a => a.Clone()).ToList();
 			return res;
 		}
