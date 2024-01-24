@@ -195,10 +195,9 @@ MonoBehaviour:
   DragMode: 0
   IsButtonsCallOnChanged: 0
   SuppressAnyGesturesForOwners: 0
+  IsBuilt: 1
   Button: {fileID: 1960886763}
   Text: {fileID: 1347493893}
-  Button1: {fileID: 0}
-  TextTMP: {fileID: 0}
 --- !u!114 &56047752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -680,7 +679,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.000012507, y: 86}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &565736935
@@ -1101,7 +1100,7 @@ GameObject:
   - component: {fileID: 875174430}
   - component: {fileID: 875174433}
   - component: {fileID: 875174432}
-  - component: {fileID: 875174431}
+  - component: {fileID: 875174434}
   m_Layer: 5
   m_Name: SampleScript
   m_TagString: Untagged
@@ -1136,51 +1135,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &875174431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 875174429}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f985df4c9380a749b74a52bc5575621, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Animations:
-    IsOverrideAnimation: 0
-    ShowAnimation: {fileID: 0}
-    HideAnimation: {fileID: 0}
-  Sounds:
-    IsSoundEnabled: 1
-    PlayButtonClickSound: 1
-    OwnerMode: 0
-    BackgroundSound: {fileID: 8300000, guid: 672ab790bdd2c33498f5da140afaf617, type: 3}
-    IsOverrideSounds: 1
-    ShowSound: {fileID: 0}
-    HideSound: {fileID: 0}
-  IsShowAtStart: 1
-  IsHideNeighborsOnShow: 0
-  IsHideChildrenOnHide: 1
-  IsDynamicallyCreated: 0
-  IsDragMode: 0
-  DragMode: 0
-  IsButtonsCallOnChanged: 0
-  SuppressAnyGesturesForOwners: 0
-  buttonA: {fileID: 0}
-  Button: {fileID: 2120576719}
-  Text: {fileID: 1299831846}
-  Button1: {fileID: 478573800}
-  TextTMP: {fileID: 1576201956}
-  Button2: {fileID: 1715483818}
-  TextTMP1: {fileID: 251892395}
-  SampleScript2: {fileID: 56047751}
-  Sample3: {fileID: 1847510473}
-  Button11: {fileID: 0}
-  TextTMP2: {fileID: 0}
-  Button21: {fileID: 0}
-  TextTMP3: {fileID: 0}
 --- !u!114 &875174432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1219,6 +1173,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 875174429}
   m_CullTransparentMesh: 1
+--- !u!114 &875174434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 875174429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f985df4c9380a749b74a52bc5575621, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Animations:
+    IsOverrideAnimation: 0
+    ShowAnimation: {fileID: 0}
+    HideAnimation: {fileID: 0}
+  Sounds:
+    IsSoundEnabled: 1
+    PlayButtonClickSound: 1
+    OwnerMode: 0
+    BackgroundSound: {fileID: 8300000, guid: 672ab790bdd2c33498f5da140afaf617, type: 3}
+    IsOverrideSounds: 0
+    ShowSound: {fileID: 0}
+    HideSound: {fileID: 0}
+  IsShowAtStart: 1
+  IsHideNeighborsOnShow: 0
+  IsHideChildrenOnHide: 1
+  IsDynamicallyCreated: 0
+  IsDragMode: 0
+  DragMode: 0
+  IsButtonsCallOnChanged: 0
+  SuppressAnyGesturesForOwners: 0
+  buttonA: {fileID: 0}
+  IsBuilt: 1
+  ButtonRed: {fileID: 2120576719}
+  Text: {fileID: 1299831846}
+  ButtonYellow: {fileID: 478573800}
+  TextTMP: {fileID: 1576201956}
+  ButtonGreen: {fileID: 1715483818}
+  TextTMP1: {fileID: 251892395}
+  Sample2: {fileID: 0}
+  Sample3: {fileID: 1847510473}
+  ButtonError: {fileID: 2031218195}
+  TextTMP2: {fileID: 832054945}
+  ButtonMessage: {fileID: 2017668446}
+  TextTMP3: {fileID: 270633179}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2221,8 +2221,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -187, y: 94}
-  m_SizeDelta: {x: -419.5808, y: -252.508}
+  m_AnchoredPosition: {x: -187, y: -1.7664032}
+  m_SizeDelta: {x: -419.5808, y: -60.975}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1847510472
 MonoBehaviour:
@@ -2280,15 +2280,16 @@ MonoBehaviour:
     HideSound: {fileID: 0}
   IsShowAtStart: 0
   IsHideNeighborsOnShow: 0
-  IsHideChildrenOnHide: 1
+  IsHideChildrenOnHide: 0
   IsDynamicallyCreated: 0
   IsDragMode: 0
   DragMode: 0
   IsButtonsCallOnChanged: 0
   SuppressAnyGesturesForOwners: 0
-  Button: {fileID: 565736935}
-  Text: {fileID: 1239305884}
-  Sample4: {fileID: 1976764692}
+  IsBuilt: 1
+  Button: {fileID: 0}
+  Text: {fileID: 0}
+  Sample4: {fileID: 0}
 --- !u!222 &1847510474
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2468,8 +2469,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -177}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -70}
+  m_SizeDelta: {x: -40.000004, y: -192}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1976764691
 MonoBehaviour:
@@ -2533,8 +2534,9 @@ MonoBehaviour:
   DragMode: 0
   IsButtonsCallOnChanged: 0
   SuppressAnyGesturesForOwners: 0
-  Button: {fileID: 2098936892}
-  Text: {fileID: 803223988}
+  IsBuilt: 1
+  Button: {fileID: 0}
+  Text: {fileID: 0}
 --- !u!222 &1976764693
 CanvasRenderer:
   m_ObjectHideFlags: 0

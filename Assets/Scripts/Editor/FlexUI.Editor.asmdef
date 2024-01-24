@@ -2,7 +2,7 @@
     "name": "FlexUI.Editor",
     "rootNamespace": "",
     "references": [
-        "GUID:8c6ebcb0bfc59ab1cae67c2f20af0014"
+        "FlexUI"
     ],
     "includePlatforms": [
         "Editor"

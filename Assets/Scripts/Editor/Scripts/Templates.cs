@@ -34,8 +34,6 @@ namespace FlexUI.Editor
 			return result;
 		}
 
-		static int TabSize = 4;
-
 		public static string Prepare(string textCSharp)
 		{
 			var lines = textCSharp.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries)
@@ -63,15 +61,19 @@ namespace FlexUI.Editor
 			}
 
 			//insert indents
+			const int tabSize = 4;
 			var indent = 0;
 			for (int i = 0; i < lines.Count; i++)
 			{
 				var line = lines[i];
 
+				if(line.StartsWith('#'))
+					continue;
+				
 				if (line == "}")
 					indent--;
 
-				var newLine = new string(' ', TabSize * indent) + line;
+				var newLine = new string(' ', tabSize * indent) + line;
 
 				if (line == "{")
 					indent++;
